@@ -1,0 +1,112 @@
+.main {
+  width: 100%;
+  display: flex;
+  padding: 10px 20px;
+  gap: 30px;
+}
+
+.leftside {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rightside {
+  flex: 3;
+  width: 100%;
+}
+
+.logout {
+  color: #1f1f1f;
+  padding: 10px 20px;
+  border-radius: 6px;
+  background-color: var(--yellow-text);
+  border: 1px solid var(--yellow-text);
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  text-decoration: none;
+  font-family: "Lexend Deca", sans-serif;
+  cursor: pointer;
+  transition: 200ms ease-in;
+}
+
+.logout:hover {
+  color: var(--yellow-text);
+  background-color: transparent;
+}
+.rightside h2 {
+  color: var(--chart-title);
+  font-weight: 400;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+.head {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.prfCard {
+  background: var(--card-bg);
+  color: #fff;
+  border-radius: 10px;
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prfgrp {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label {
+  color: var(--yellow-text);
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+
+.btmdiv {
+  display: flex;
+  gap: 10px;
+}
+
+.recordCard {
+  background: var(--card-bg);
+  color: #fff;
+  border-radius: 10px;
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.recordCard h4 {
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+.recordCard h3 {
+  color: var(--yellow-text);
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.8rem;
+}
+
+@media (max-width: 900px) {
+  .main {
+    flex-direction: column;
+  }
+  .rightside {
+    max-width: 100vw;
+  }
+}

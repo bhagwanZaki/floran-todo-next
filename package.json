@@ -9,10 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "chart.js": "^4.3.0",
+    "chartjs-plugin-zoom": "^2.0.1",
+    "cookie-cutter": "^0.2.0",
+    "cookies": "^0.8.0",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "next": "13.4.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-calendar": "^4.2.1",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "18.2.0",
+    "react-toastify": "^9.0.3",
+    "rxjs": "^7.8.1"
   }
 }

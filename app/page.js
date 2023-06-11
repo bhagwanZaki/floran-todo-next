@@ -1,95 +1,119 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import Calendar from "react-calendar";
+
+import prf from "../imgs/prf.png";
+import styles from "../css/page.module.css";
+
+import TodoDiv from "@/component/TodoDiv";
 
 export default function Home() {
+  const [date, setDate] = useState(new Date());
+  const [idate, setidate] = useState(new Date());
+  const [ititle, setititle] = useState("");
+  const [itextarea, setitextarea] = useState("");
+
+  const OpenModal = () => {
+    const dia = document.getElementById("formDialog");
+    dia.showModal();
+  };
+
+  const CloseModal = () => {
+    const dia = document.getElementById("formDialog");
+    dia.close();
+  };
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+      <Link className={styles.acct} href={"/profile"}>
+        <Image src={prf} className={styles.prf} alt="Profile" />
+      </Link>
+      <dialog id="formDialog" className={styles.dialog}>
+        <div className={styles.dialogContent}>
+          <h3>Create New Todo</h3>
+          <form className={styles.dform} action="">
+            <div className={styles.grp}>
+              <label htmlFor="date">Date :</label>
+              <input
+                required
+                value={idate}
+                onChange={(e) => setidate(e.target.value)}
+                className={styles.dinput}
+                type="date"
+              />
+            </div>
+            <div className={styles.grp}>
+              <label htmlFor="date">Title :</label>
+              <input
+                value={ititle}
+                onChange={(e) => setititle(e.target.value)}
+                className={styles.input}
+                placeholder="Title"
+                type="text"
+                required
+              />
+            </div>
+            <div className={styles.grp}>
+              <label htmlFor="date">Description :</label>
+              <textarea
+                value={itextarea}
+                onChange={(e) => setitextarea(e.target.value)}
+                required
+                name="description"
+                placeholder="Description"
+                className={styles.input}
+                cols="30"
+                rows="10"
+              ></textarea>
+            </div>
+            <input type="submit" value={"Add"} className={styles.submit} />
+          </form>
+        </div>
+
+        <button className={styles.exit} onClick={CloseModal}>
+          Exit
+        </button>
+      </dialog>
+      <div className={styles.calendarSide}>
+        <Calendar value={date} onChange={setDate} />
+      </div>
+      <div className={styles.todoList}>
+        <button onClick={OpenModal} className={styles.addBtn}>
+          Add New Todo
+        </button>
+        <div className={styles.todoGrid}>
+          
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
+          <TodoDiv />
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
     </main>
-  )
+  );
 }

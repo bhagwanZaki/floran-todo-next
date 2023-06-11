@@ -1,0 +1,204 @@
+.main {
+  width: 100%;
+  display: flex;
+  padding: 10px 20px;
+}
+.acct {
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.prf{
+  width: 30px;
+  height: auto;
+}
+
+.calendarSide {
+  flex: 1;
+}
+
+.todoList {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dialog {
+  position: absolute;
+  margin: auto;
+  padding: 40px 20px;
+  width: 70%;
+  border: 1px solid rgba(105, 105, 105, 0.05);
+  border-radius: 10px;
+}
+
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.dialogContent h3 {
+  width: max-content;
+  font-weight: 300;
+  font-size: 1.2rem;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.exit {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  width: max-content;
+  border: none;
+  background: #fff;
+  font-size: 1rem;
+  color: #696969;
+}
+
+.dform {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.grp {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.dinput {
+  width: max-content;
+  padding: 5px 20px;
+  border: 1px solid #69696975;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: "Lexend Deca", sans-serif;
+}
+
+.input {
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  border: 1px solid #69696975;
+  font-family: "Lexend Deca", sans-serif;
+}
+
+.submit {
+  width: max-content;
+  font-size: 1rem;
+  padding: 10px 50px;
+  border-radius: 10px;
+  color: #1f1f1f;
+  background-color: var(--yellow-text);
+  border: none;
+  font-family: "Lexend Deca", sans-serif;
+}
+
+.addBtn {
+  width: max-content;
+  font-size: 1rem;
+  padding: 10px 50px;
+  border-radius: 10px;
+  color: #1f1f1f;
+  background-color: var(--yellow-text);
+  border: none;
+  font-family: "Lexend Deca", sans-serif;
+  align-self: flex-end;
+}
+
+.todoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.todoDivs {
+  padding: 20px;
+  background: #586255;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 10px;
+}
+
+.delayChip {
+  width: max-content;
+  padding: 5px 20px;
+  color: #1f1f1f;
+  background-color: var(--yellow-text);
+  border-radius: 100px;
+}
+
+.todoDivs h2 {
+  font-size: 2rem;
+}
+.bottomRow {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottomRow h4 {
+  font-weight: 200;
+}
+
+.checkbox {
+  /* font-size: 1.8rem; */
+  /* border: none; */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: 1px solid #ccc;
+}
+
+.checkbox:checked {
+  background-color: var(--green);
+}
+
+.checkbox:checked::before {
+  content: "\2713";
+  display: block;
+  text-align: center;
+  line-height: 20px;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .main {
+    flex-direction: column;
+  }
+  .todoGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 400px) {
+  .todoGrid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .todoDivs h2 {
+    font-size: 1.7rem;
+  }
+
+  .bottomRow {
+    margin-top: 10px;
+  }
+}

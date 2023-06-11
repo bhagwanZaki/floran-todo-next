@@ -1,0 +1,19 @@
+.container{
+    width: 100%;
+    max-width: 100%;
+}
+
+.containerBody{
+    height: 65vh;
+}
+
+@media (max-width: 900px) {
+    .container{
+        overflow-x: scroll;
+        direction: rtl;
+    }
+
+    .containerBody{
+        width: 200%;
+    }
+  }
