@@ -57,6 +57,8 @@ body::-webkit-scrollbar-track {
   padding: 20px 20px;
   font-size: 3rem;
   font-weight: 200;
+  text-decoration: none;
+  color: var(--text-color);
 }
 
 .react-calendar {

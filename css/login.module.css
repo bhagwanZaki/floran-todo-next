@@ -74,6 +74,17 @@
   font-family: "Lexend Deca", sans-serif;
 }
 
+.loadingBtn{
+  position: relative;
+  width: max-content;
+  font-size: 1.5rem;
+  padding: 10px 50px;
+  border-radius: 10px;
+  color: #1f1f1f;
+  background-color: transparent;
+  border: 1px solid var(--yellow-text);
+}
+
 .link {
   color: var(--text-color);
   text-decoration: none;

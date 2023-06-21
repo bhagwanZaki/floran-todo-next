@@ -10,15 +10,60 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { ToastContainer, toast } from "react-toastify";
+import { BASE_URL } from "@/utils";
+import Loader from "@/component/Loader";
 
-function page() {
+async function registerAPI(username, email, password, toast, router,setLoading) {
+  const res = await fetch(`${BASE_URL}auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      email: email,
+      password: password,
+    }),
+  });
+  const result = await res.json();
+  console.log(result)
+  if (!res.ok) {
+    var error = "";
+    if (result.hasOwnProperty("username")) {
+      error = result.username[0];
+    } else if (result.hasOwnProperty("email")) {
+      error = result.email;
+    }
+    toast.error(error, {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+
+    setLoading(false)
+  } else {
+    cookieCutter.set("email", result.user.email);
+    cookieCutter.set("username", result.user.username);
+    cookieCutter.set("authKey", result.token);
+    console.log("Routing you to main page");
+    router.push("/");
+  }
+}
+
+function Page() {
   const [theme, setTheme] = useState("dark");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  //   const addSnackbar = useSnackbar();
+
   useEffect(() => {
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
     if (!darkThemeMq.matches) {
@@ -38,7 +83,7 @@ function page() {
     }
   };
 
-  const SubmitForm = (e) => {
+  const SubmitForm = async (e) => {
     e.preventDefault();
     if (password !== cpassword) {
       toast.error("Password Not Same", {
@@ -52,18 +97,8 @@ function page() {
         theme: "colored",
       });
     }
-    toast.success(`Welcome ${username}`, {
-      position: "bottom-left",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
-    cookieCutter.set("authKey", "Logged in");
-    router.push("/");
+    setLoading(true);
+    await registerAPI(username, email, password, toast, router,setLoading);
   };
 
   const notify = () => toast("Wow so easy!");
@@ -144,7 +179,13 @@ function page() {
               <input type="checkbox" onClick={ShowPassword} /> Show Password
             </div>
           </div>
-          <input type="submit" className={styles.submit} value={"Register"} />
+          {loading ? (
+            <div className={styles.loadingBtn}>
+              <Loader />
+            </div>
+          ) : (
+            <input type="submit" className={styles.submit} value={"Register"} />
+          )}
         </form>
         <Link href={"/login"} className={styles.link}>
           Already Have An Account
@@ -161,4 +202,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

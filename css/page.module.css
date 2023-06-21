@@ -11,6 +11,20 @@
   color: #fff;
 }
 
+.notodo{
+  font-weight: 400;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+.loaderDiv{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
 .prf{
   width: 30px;
   height: auto;
@@ -123,6 +137,7 @@
 }
 
 .todoDivs {
+  position: relative;
   padding: 20px;
   background: #586255;
   color: #fff;
@@ -137,6 +152,13 @@
   padding: 5px 20px;
   color: #1f1f1f;
   background-color: var(--yellow-text);
+  border-radius: 100px;
+}
+.nondelayChip {
+  width: max-content;
+  padding: 5px 20px;
+  color: transparent;
+  background-color: transparent;
   border-radius: 100px;
 }
 
@@ -180,6 +202,19 @@
   color: #fff;
 }
 
+.delete{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+}
+
+.deleteSVg{
+  fill: #fff;
+  font-size: 1.2rem;
+}
+
 @media (max-width: 900px) {
   .main {
     flex-direction: column;
@@ -200,5 +235,24 @@
 
   .bottomRow {
     margin-top: 10px;
+  }
+}
+
+/* z fold */
+@media (max-width: 718px) and (max-height: 513px) {
+  .main{
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .calendarSide{
+    flex: 2;
+    position: sticky;
+    top: 20px;
+  }
+
+  .todoGrid{
+    grid-template-columns: 1fr;
   }
 }

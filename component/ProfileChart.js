@@ -23,7 +23,7 @@ ChartJS.register(
   Legend
 );
 
-function ProfileChart() {
+function ProfileChart({label,data}) {
   const opt = {
     responsive: true,
     maintainAspectRatio: false,
@@ -51,80 +51,21 @@ function ProfileChart() {
     },
   };
 
-  const labels = [
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22",
-    "23",
-    "24",
-    "25",
-    "26",
-    "27",
-    "28",
-    "29",
-    "30",
-  ];
+  var labels = []
+  var bg = []
+  var date = new Date()
+  for (var i of label){
+    labels.push(`${i}/${date.getMonth()+1}`)
+    bg.push("rgba(126, 128, 111, 1)")
+  }
+  bg[bg.length-1] = "rgba(236, 112, 22, 1)"
+  
   const ata = {
     labels,
     datasets: [
       {
-        data: [
-          13, 15, 3, 16, 11, 12, 6, 14, 2, 7, 19, 9, 3, 9, 14, 11, 4, 10, 20,
-          13, 12, 10, 2, 7, 10, 19, 9, 9, 2, 15, 4,
-        ],
-        backgroundColor: [
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(126, 128, 111, 1)",
-          "rgba(236, 112, 22, 1)",
-        ],
+        data: data,
+        backgroundColor: bg,
         borderRadius: 10,
         borderSkipped: false,
         barThickness: 10,

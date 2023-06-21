@@ -1,6 +1,6 @@
+import Link from "next/link";
 import "../css/globals.css";
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata = {
   title: "Todo",
@@ -11,7 +11,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <h1 className="logo">To Do</h1>
+        <Link href={"/"} className="logo">
+          To Do
+          </Link>
         {children}
       </body>
     </html>

@@ -8,11 +8,49 @@ import bgb from "../../imgs/logob.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { BASE_URL } from "@/utils";
+import { ToastContainer, toast } from "react-toastify";
+import Loader from "@/component/Loader";
 
-function page() {
+async function loginAPI(username, password, toast, router,setLoading) {
+  const res = await fetch(`${BASE_URL}auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password,
+    }),
+  });
+  const result = await res.json();
+
+  if (!res.ok) {
+    setLoading(false)
+    toast.error("Incorrect Credentials", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  } else {
+    cookieCutter.set("email", result.user.email);
+    cookieCutter.set("username", result.user.username);
+    cookieCutter.set("authKey", result.token);
+    console.log("Routing you to main page");
+    router.push("/");
+  }
+}
+
+function Page() {
   const [theme, setTheme] = useState("dark");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -31,14 +69,26 @@ function page() {
     }
   };
 
-  const SubmitForm = (e) => {
+  const SubmitForm = async (e) => {
     e.preventDefault();
-    cookieCutter.set("authKey", "Logged in");
-    router.push("/");
+    setLoading(true);
+    const res = await loginAPI(username, password, toast, router,setLoading);
   };
 
   return (
     <section className={styles.section}>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <div className={styles.formPart}>
         <h2>Login</h2>
         <form className={styles.form} onSubmit={(e) => SubmitForm(e)}>
@@ -73,21 +123,37 @@ function page() {
               <input type="checkbox" onClick={ShowPassword} /> Show Password
             </div>
           </div>
-          <input type="submit" className={styles.submit} value={"Login"} />
+          {loading ? (
+            <button className={styles.loadingBtn}>
+              <Loader />
+            </button>
+          ) : (
+            <input type="submit" className={styles.submit} value={"Login"} />
+          )}
         </form>
-        <Link href={"/"} className={styles.link}>
-          Don't Have An Account
+        <Link href={"/register"} className={styles.link}>
+          Don&apos;t Have An Account
         </Link>
       </div>
       <div className={styles.imgPart}>
         {theme === "dark" ? (
-          <Image src={bgb} alt="Background image" className={styles.img} />
+          <Image
+            priority
+            src={bgb}
+            alt="Background image"
+            className={styles.img}
+          />
         ) : (
-          <Image src={bgw} alt="Background image" className={styles.img} />
+          <Image
+            priority
+            src={bgw}
+            alt="Background image"
+            className={styles.img}
+          />
         )}
       </div>
     </section>
   );
 }
 
-export default page;
+export default Page;
