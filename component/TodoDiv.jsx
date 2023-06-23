@@ -8,7 +8,7 @@ import Loader from "./Loader";
 async function checkedAPI(id) {
   const user_token = cookieCutter.get("authKey");
   const date = new Date();
-  
+
   const res = await fetch(`${BASE_URL}todos/${id}/`, {
     method: "PATCH",
     headers: {
@@ -16,7 +16,9 @@ async function checkedAPI(id) {
       Authorization: `Token ${user_token}`,
     },
     body: JSON.stringify({
-      completed_at: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
+      completed_at: `${date.getFullYear()}-${
+        date.getMonth() + 1
+      }-${date.getDate()}`,
       completed: true,
     }),
   });
@@ -29,19 +31,46 @@ async function checkedAPI(id) {
   }
 }
 
+async function deleteAPI(id) {
+  const user_token = cookieCutter.get("authKey");
+
+  const res = await fetch(`${BASE_URL}todos/${id}/`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${user_token}`,
+    },
+  });
+  if (!res.ok) {
+    return false;
+  }
+  return true;
+}
+
 function TodoDiv({ isDelay, data, id, RemoveItem }) {
   const [cload, setcload] = useState(false);
   const [cdele, setcdele] = useState(false);
 
-  const CompleteTodo = async (did) => {
+  const CompleteTodo = async (tid) => {
     setcload(true);
 
-    const res = await checkedAPI(did);
+    const res = await checkedAPI(tid);
     if (res) {
       RemoveItem(id);
     }
 
     setcload(false);
+  };
+
+  const DeleteTodo = async (tid) => {
+    setcdele(true);
+
+    const res = await deleteAPI(tid);
+    if (res) {
+      RemoveItem(id);
+    }
+
+    setcdele(false);
   };
   return (
     <div className={styles.todoDivs}>
@@ -65,20 +94,26 @@ function TodoDiv({ isDelay, data, id, RemoveItem }) {
           />
         )}
 
-        <button
-          title="Delete todo"
-          onClick={() => RemoveItem(id)}
-          className={styles.delete}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="1em"
-            viewBox="0 0 448 512"
-            className={styles.deleteSVg}
+        {cdele ? (
+          <div className={styles.delete}>
+            <Loader />
+          </div>
+        ) : (
+          <button
+            title="Delete todo"
+            onClick={() => DeleteTodo(data.id)}
+            className={styles.delete}
           >
-            <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="1em"
+              viewBox="0 0 448 512"
+              className={styles.deleteSVg}
+            >
+              <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );

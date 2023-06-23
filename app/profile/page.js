@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import styles from "../../css/profile.module.css";
 import ProfileChart from "@/component/ProfileChart";
 import cookieCutter from "cookie-cutter";
+import { useRouter } from "next/navigation";
 
 import { BASE_URL } from "@/utils";
+import Loader from "@/component/Loader";
 import Loader2 from "@/component/Loader2";
 
 async function profileAPI() {
@@ -20,7 +22,6 @@ async function profileAPI() {
   });
 
   const result = await res.json();
-  console.log(result);
   if (!res.ok) {
     return {
       data: result.error,
@@ -34,11 +35,32 @@ async function profileAPI() {
   }
 }
 
+async function logoutAPI(router) {
+  const user_token = cookieCutter.get("authKey");
+  const res = await fetch(`${BASE_URL}auth/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${user_token}`,
+    },
+  });
+
+  if (res.ok) {
+    cookieCutter.set("authKey", "");
+    router.push("/login");
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function Page() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [lloading, setlLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const cemail = cookieCutter.get("email");
@@ -59,6 +81,11 @@ function Page() {
 
     intialCall();
   }, []);
+
+  const Logout = async () => {
+    setlLoading(true);
+    const res = await logoutAPI(router);
+  };
 
   const PrfCardGrp = ({ label, data }) => {
     return (
@@ -84,7 +111,15 @@ function Page() {
     </div>
   ) : (
     <main className={styles.main}>
-      <button className={styles.logout}>Logout</button>
+      {lloading ? (
+        <div className={styles.llogout}>
+          <Loader />
+        </div>
+      ) : (
+        <button onClick={() => Logout()} className={styles.logout}>
+          Logout
+        </button>
+      )}
       <div className={styles.leftside}>
         <h3 className={styles.head}>User Profile</h3>
         <div className={styles.cardDiv}>

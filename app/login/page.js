@@ -41,7 +41,6 @@ async function loginAPI(username, password, toast, router,setLoading) {
     cookieCutter.set("email", result.user.email);
     cookieCutter.set("username", result.user.username);
     cookieCutter.set("authKey", result.token);
-    console.log("Routing you to main page");
     router.push("/");
   }
 }

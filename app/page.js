@@ -174,8 +174,6 @@ export default function Home() {
   const RemoveItem = (id) => {
     const updatedItems = [...data];
     updatedItems.splice(id, 1);
-    console.log("Calling remove item");
-    console.log(id);
     setData(updatedItems);
   };
 
@@ -249,7 +247,11 @@ export default function Home() {
         <Calendar value={date} onChange={DateChange} />
       </div>
       <div className={styles.todoList}>
-        <button title="Add new todo" onClick={OpenModal} className={styles.addBtn}>
+        <button
+          title="Add new todo"
+          onClick={OpenModal}
+          className={styles.addBtn}
+        >
           Add New Todo
         </button>
         {loading ? (
@@ -257,28 +259,26 @@ export default function Home() {
             <Loader2 />
             <h3>Fetching Data..</h3>
           </div>
+        ) : data.length === 0 ? (
+          <div className={styles.loaderDiv}>
+            <h3 className={styles.notodo}>
+              Nothing to do? Sounds like the perfect time for a well-deserved
+              break 😁.
+            </h3>
+          </div>
         ) : (
           <div className={styles.todoGrid}>
-            {data.length === 0 ? (
-              <div className={styles.loaderDiv}>
-                <h3 className={styles.notodo}>
-                  Nothing to do? Sounds like the perfect time for a
-                  well-deserved break 😁.
-                </h3>
-              </div>
-            ) : (
-              data.map((val, key) => {
-                return (
-                  <TodoDiv
-                    isDelay={CompareDate(val.date_completed_by)}
-                    data={val}
-                    key={key}
-                    id={key}
-                    RemoveItem={RemoveItem}
-                  />
-                );
-              })
-            )}
+            {data.map((val, key) => {
+              return (
+                <TodoDiv
+                  isDelay={CompareDate(val.date_completed_by)}
+                  data={val}
+                  key={key}
+                  id={key}
+                  RemoveItem={RemoveItem}
+                />
+              );
+            })}
           </div>
         )}
       </div>

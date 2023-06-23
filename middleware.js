@@ -4,19 +4,17 @@ export default function middleware(req) {
   let token = req.cookies.get("authKey");
   let isAuth;
 
-  console.log(token);
-
-  if (token === null || token === undefined || token === "") {
+  if (token === null || token === undefined) {
     isAuth = false;
   } else {
-    isAuth = true;
+    if(token.value === ""){
+      isAuth = false
+    } else {
+      isAuth = true;
+    }
   }
   let url = req.url;
-  let webUrl = "http://127.0.0.1:3000/";
-  console.log(`${webUrl}profile`)
-  console.log(url)
-  console.log(url.includes(`profile`));
-  console.log(!isAuth && (url === webUrl || url.includes(`${webUrl}profile`)));
+  let webUrl = "http://localhost:3000/";
 
   if (
     isAuth &&

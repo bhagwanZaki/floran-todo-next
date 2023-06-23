@@ -26,7 +26,6 @@ async function registerAPI(username, email, password, toast, router,setLoading) 
     }),
   });
   const result = await res.json();
-  console.log(result)
   if (!res.ok) {
     var error = "";
     if (result.hasOwnProperty("username")) {
@@ -50,7 +49,6 @@ async function registerAPI(username, email, password, toast, router,setLoading) 
     cookieCutter.set("email", result.user.email);
     cookieCutter.set("username", result.user.username);
     cookieCutter.set("authKey", result.token);
-    console.log("Routing you to main page");
     router.push("/");
   }
 }

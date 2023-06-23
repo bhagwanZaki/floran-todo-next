@@ -42,9 +42,23 @@
   transition: 200ms ease-in;
 }
 
+.llogout {
+  color: #1f1f1f;
+  padding: 10px 20px;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 1px solid var(--yellow-text);
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  text-decoration: none;
+  font-family: "Lexend Deca", sans-serif;
+  cursor: pointer;
+  transition: 200ms ease-in;
+}
+
 .logout:hover {
   color: var(--yellow-text);
-  background-color: transparent;
 }
 .rightside h2 {
   color: var(--chart-title);
