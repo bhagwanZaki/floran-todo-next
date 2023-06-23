@@ -122,6 +122,7 @@ export default function Home() {
     e.preventDefault();
     const res = await createTodoAPI(idate, ititle, itextarea);
     if (res) {
+      CloseModal();
       toast.success("New Todo Added", {
         position: "bottom-left",
         autoClose: 5000,
@@ -135,6 +136,7 @@ export default function Home() {
       var todaysDate = new Date();
       await DateChange(todaysDate);
     } else {
+      CloseModal();
       toast.warn("Something went wrong", {
         position: "bottom-left",
         autoClose: 5000,
@@ -147,7 +149,6 @@ export default function Home() {
       });
     }
 
-    CloseModal();
   };
 
   const DateChange = async (e) => {
