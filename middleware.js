@@ -14,7 +14,7 @@ export default function middleware(req) {
     }
   }
   let url = req.url;
-  let webUrl = "http://localhost:3000/";
+  let webUrl = "https://florantodo.netlify.app/";
 
   if (
     isAuth &&
