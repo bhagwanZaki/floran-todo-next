@@ -13,6 +13,7 @@ import { BASE_URL } from "@/utils";
 
 import TodoDiv from "@/component/TodoDiv";
 import Loader2 from "@/component/Loader2";
+import Loader from "@/component/Loader";
 
 export async function fetchTodoAPI(date) {
   const user_token = cookieCutter.get("authKey");
@@ -65,6 +66,7 @@ async function createTodoAPI(date, title, desc) {
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
+  const [aloading, setaLoading] = useState(false);
   const [date, setDate] = useState(new Date());
   const [idate, setidate] = useState(new Date());
   const [ititle, setititle] = useState("");
@@ -120,7 +122,9 @@ export default function Home() {
 
   const SubmitForm = async (e) => {
     e.preventDefault();
+    setaLoading(true);
     const res = await createTodoAPI(idate, ititle, itextarea);
+    setaLoading(false);
     if (res) {
       CloseModal();
       toast.success("New Todo Added", {
@@ -136,7 +140,6 @@ export default function Home() {
       var todaysDate = new Date();
       await DateChange(todaysDate);
     } else {
-      CloseModal();
       toast.warn("Something went wrong", {
         position: "bottom-left",
         autoClose: 5000,
@@ -148,7 +151,6 @@ export default function Home() {
         theme: "colored",
       });
     }
-
   };
 
   const DateChange = async (e) => {
@@ -236,7 +238,13 @@ export default function Home() {
                 rows="10"
               ></textarea>
             </div>
-            <input type="submit" value={"Add"} className={styles.submit} />
+            {aloading ? (
+              <div className={styles.submit}>
+                <Loader />
+              </div>
+            ) : (
+              <input type="submit" value={"Add"} className={styles.submit} />
+            )}
           </form>
         </div>
 
